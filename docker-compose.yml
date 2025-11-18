@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  chat-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat-agent
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Override cache and log directories for container
+      - CACHE_DIRECTORY=/app/cache
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      # Mount cache directory for persistence
+      - ./cache:/app/cache
+      # Mount logs directory for easy access
+      - ./logs:/app/logs
+      # Mount app code for development (comment out for production)
+      - ./app:/app/app
+      - ./main.py:/app/main.py
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - chat-agent-network
+
+networks:
+  chat-agent-network:
+    driver: bridge
