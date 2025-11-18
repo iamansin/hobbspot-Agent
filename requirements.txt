@@ -1,14 +1,89 @@
+# Core FastAPI and server
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
+starlette==0.27.0
+
+# HTTP clients and networking
 httpx==0.25.1
+httpcore==1.0.9
+httptools==0.7.1
+h11==0.16.0
+websockets==15.0.1
+requests==2.32.5
+urllib3==2.5.0
+
+# Caching
 diskcache==5.6.3
-appwrite==4.1.0
+
+# Appwrite SDK
+appwrite==13.6.1
+
+# OpenAI
 openai==1.3.7
-google-generativeai==0.3.1
+
+# Google Generative AI (Gemini)
+google-generativeai==0.8.5
+google-ai-generativelanguage==0.6.15
+google-api-core==2.28.1
+google-api-python-client==2.187.0
+google-auth==2.43.0
+google-auth-httplib2==0.2.1
+googleapis-common-protos==1.72.0
+
+# gRPC (for Google APIs)
+grpcio==1.76.0
+grpcio-status==1.71.2
+
+# Logging
 loguru==0.7.2
-pydantic==2.5.0
+
+# Data validation
+pydantic==2.12.4
+pydantic-core==2.41.5
 pydantic-settings==2.1.0
+annotated-types==0.7.0
+
+# Environment variables
 python-dotenv==1.0.0
+
+# Rate limiting
+slowapi==0.1.9
+limits==5.6.0
+
+# Testing
 pytest==7.4.3
 pytest-asyncio==0.21.1
-slowapi==0.1.9
+
+# Utilities
+click==8.3.1
+colorama==0.4.6
+tqdm==4.67.1
+packaging==25.0
+pyparsing==3.2.5
+pyyaml==6.0.3
+watchfiles==1.1.1
+
+# Type checking and protocols
+typing-extensions==4.15.0
+typing-inspection==0.4.2
+
+# Other dependencies
+anyio==3.7.1
+sniffio==1.3.1
+certifi==2025.11.12
+charset-normalizer==3.4.4
+idna==3.11
+cachetools==6.2.2
+deprecated==1.3.1
+distro==1.9.0
+httplib2==0.31.0
+iniconfig==2.3.0
+pluggy==1.6.0
+proto-plus==1.26.1
+protobuf==5.29.5
+pyasn1==0.6.1
+pyasn1-modules==0.4.2
+rsa==4.9.1
+uritemplate==4.2.0
+wrapt==2.0.1
+win32-setctime==1.2.0
