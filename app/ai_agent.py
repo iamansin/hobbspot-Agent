@@ -8,6 +8,7 @@ import google.generativeai as genai
 
 from app.models import UserContext, Message
 from app.utils import retry_with_backoff
+from app.prompts import USER_SUMMARY_PROMPT, BASE_PROMPT,CHAT_INTEREST_PROMPT, TOPIC_INTEREST_PROMPT
 
 
 class AIAgent:
@@ -89,22 +90,19 @@ class AIAgent:
             
         Requirements: 6.1
         """
-        prompt_parts = [
-            "You are a helpful and personalized AI assistant. Your goal is to provide "
-            "relevant, engaging responses tailored to the user's interests and context."
-        ]
+        prompt_parts = []
         
         # Add user interest information
         if user_context.chatInterest:
             prompt_parts.append(
-                f"\n###The user is interested in: {user_context.chatInterest}"
+                CHAT_INTEREST_PROMPT.format(interest = user_context.chatInterest)
             )
         
         # Add topics
         if user_context.topics:
             topics_str = ", ".join(user_context.topics)
             prompt_parts.append(
-                f"\n###The user's topics of interest include: {topics_str}"
+                TOPIC_INTEREST_PROMPT.format(topics = topics_str)
             )
         
         # Add birthdate if available
@@ -116,17 +114,14 @@ class AIAgent:
         # Add conversation summary for returning users
         if not is_first_message and user_context.userSummary:
             prompt_parts.append(
-                f"\n\n**Previous conversation summary:**\n{user_context.userSummary}"
+                USER_SUMMARY_PROMPT.format(summary = user_context.userSummary)
             )
         
-        # Add instructions
-        prompt_parts.append(
-            "\n\nProvide responses in Markdown format. Be conversational, helpful, "
-            "and personalize your responses based on the user's interests and context. "
-            "If you need current information, use the web_search function."
-        )
-        
-        return "".join(prompt_parts)
+        parts = "".join(prompt_parts)
+
+        return BASE_PROMPT.format(parts = parts)
+
+
 
     async def generate_response(
         self,
@@ -586,7 +581,7 @@ class AIAgent:
                 f"Previous conversation summary:\n{previous_summary}\n\n"
                 f"New messages:\n{conversation_text}\n\n"
                 f"Please create an updated summary that compresses both the previous "
-                f"summary and the new messages into a single concise summary."
+                f"summary and the new messages into a single concise summary. Try to retain infromation using High Signaling words!"
             )
         else:
             prompt_content = f"Please summarize this conversation:\n\n{conversation_text}"

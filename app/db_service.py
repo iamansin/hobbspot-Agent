@@ -64,8 +64,7 @@ class DatabaseService:
         self.collection_id = collection_id
         
         logger.info(
-            f"DatabaseService initialized: endpoint={endpoint}, "
-            f"project={project_id}, database={database_id}, collection={collection_id}"
+            f"DatabaseService initialized"
         )
 
     async def get_user_context(self, user_id: str) -> Optional[UserContext]:
