@@ -197,7 +197,6 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest) -> ChatResp
     user_message = chat_request.userMessage
     is_first_time = chat_request.chatInterest
     interest_topic = chat_request.interestTopic
-    
     logger.info(
         f"Chat request received: user_id={user_id}, "
         f"message_length={len(user_message)}, "
@@ -280,6 +279,7 @@ async def chat_endpoint(request: Request, chat_request: ChatRequest) -> ChatResp
             f"Message count: {len(messages)}\n"
             f"System prompt length: {len(system_prompt)}\n"
             f"Is first time: {is_first_time}"
+            f"User message is : {actual_message}"
         )
         logger.debug(f"=== SYSTEM PROMPT ===\n{system_prompt}\n=== END SYSTEM PROMPT ===")
         logger.debug(f"=== MESSAGES TO SEND ===")
